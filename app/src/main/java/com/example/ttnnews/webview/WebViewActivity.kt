@@ -12,8 +12,8 @@ class WebViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
-        webview = findViewById<WebView>(R.id.web_view)
-        webview!!.setWebViewClient(myWebViewClient())
+        webview = findViewById(R.id.web_view)
+        webview!!.setWebViewClient(MyWebViewClient())
 
         if(intent.hasExtra("url")){
 
@@ -26,7 +26,7 @@ class WebViewActivity : AppCompatActivity() {
 
     }
 
-    class myWebViewClient : WebViewClient() {
+    class MyWebViewClient : WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
             view.loadUrl(url)
             return true
