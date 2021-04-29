@@ -19,7 +19,7 @@ object RoomDatabaseBuilder {
     }
 
     // Creating database using Room
-    private fun buildRoomDB(context: Context): AppRoomDatabase? {
+    private fun buildRoomDB(context: Context): AppRoomDatabase {
         return Room.databaseBuilder(context, AppRoomDatabase::class.java, "news_db")
             .fallbackToDestructiveMigration().build()
     }

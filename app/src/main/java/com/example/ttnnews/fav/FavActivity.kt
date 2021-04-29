@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidbootcamp2021.roomdemo.RoomDatabaseBuilder
-import com.example.fav.FavAdapter
 import com.example.ttnnews.R
 import com.example.ttnnews.databse.NewModelRoom
 import com.example.ttnnews.webview.WebViewActivity
@@ -14,11 +13,11 @@ import java.util.concurrent.Executors
 
 class FavActivity : AppCompatActivity() {
     var rc_fav: RecyclerView? = null
-    var favAdapter:FavAdapter?=null
+    var favAdapter: FavAdapter?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fav_view)
-        rc_fav = findViewById<RecyclerView>(R.id.rc_fav)
+        rc_fav = findViewById(R.id.rc_fav)
         rc_fav!!.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(this)
         Executors.newSingleThreadExecutor().execute {
@@ -27,7 +26,7 @@ class FavActivity : AppCompatActivity() {
 
 
 
-            if(listData.size>0)
+            if(listData.isNotEmpty())
             runOnUiThread {
                 favAdapter = FavAdapter(this,list = listData)
                 rc_fav!!.adapter = favAdapter
@@ -44,7 +43,7 @@ class FavActivity : AppCompatActivity() {
                                     isFav = false
                                 )
                             )
-                        }// remove from tabale
+                        }// remove from table
 
                         newsdata.isFav = false
                     } else {

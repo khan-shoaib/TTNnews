@@ -18,8 +18,8 @@ class CategoryFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_category, container, false)
-        rcView = view.findViewById<RecyclerView>(R.id.rccatergory);
-        return view;
+        rcView = view.findViewById(R.id.rccatergory);
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -79,8 +79,6 @@ class SubCategoryActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
             }
-
-
         })
         getData()
     }
@@ -100,12 +98,8 @@ class SubCategoryActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: retrofit2.Call<DataModel>, t: Throwable) {
-                Log.i("Failure", "${call}")
-                Toast.makeText(
-                    this@SubCategoryActivity,
-                    "there is some error while getting data",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Log.i("Failure", "$call")
+                Toast.makeText(this@SubCategoryActivity,"there is some error while getting data",Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -130,7 +124,6 @@ class SubCategoryActivity : AppCompatActivity() {
             }
 
             customAdapter.onItemClick = { newsdata ->
-
                 if (newsdata.isFav) {
                     Executors.newSingleThreadExecutor().execute {
                         roomDatabaseBuilder.newsDao().deleteData(

@@ -6,14 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.androidbootcamp2021.roomdemo.AppRoomDatabase
 import com.example.finalapp.model.NewsModel
 import com.example.ttnnews.R
-import com.example.ttnnews.databse.NewModelRoom
-import java.util.concurrent.Executors
 
 class SubCategoryAdapter(
     private val context: Context,

@@ -1,4 +1,4 @@
-package com.example.fav
+package com.example.ttnnews.fav
 
 import android.content.Context
 import android.view.LayoutInflater

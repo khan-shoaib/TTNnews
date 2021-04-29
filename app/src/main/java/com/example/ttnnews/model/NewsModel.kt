@@ -1,7 +1,6 @@
 package com.example.finalapp.model
 
 import com.google.gson.annotations.SerializedName
-import retrofit2.http.Url
 
 data class NewsModel(
     @SerializedName("title")
