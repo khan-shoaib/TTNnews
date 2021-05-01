@@ -1,7 +1,7 @@
 package com.example.ttnnews
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.ttnnews.category.CategoryFrag
 
 class HomeActivity : AppCompatActivity() {
@@ -9,8 +9,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val CategoryFrag = CategoryFrag()
-        supportFragmentManager.beginTransaction().add(R.id.container, CategoryFrag).commit()
+        val categoryFrag = CategoryFrag()
+        supportFragmentManager.beginTransaction().add(R.id.container, categoryFrag).commit()
 
 
     }

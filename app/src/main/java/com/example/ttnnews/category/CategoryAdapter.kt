@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttnnews.R
-import com.example.ttnnews.subcategory.SubCategoryActivity
 import com.example.ttnnews.model.CategoryModel
+import com.example.ttnnews.subcategory.SubCategoryActivity
 
-class MyCategoryAdapter(var myArrayList: ArrayList<CategoryModel>) :
-    RecyclerView.Adapter<MyCategoryAdapter.CustomViewHolder>() {
+class CategoryAdapter(var myArrayList: ArrayList<CategoryModel>) :
+    RecyclerView.Adapter<CategoryAdapter.CustomViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -38,7 +38,7 @@ class MyCategoryAdapter(var myArrayList: ArrayList<CategoryModel>) :
     }
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvCatName = itemView.findViewById<TextView>(R.id.tv)
-        val row = itemView.findViewById<TextView>(R.id.tv)
+        val tvCatName: TextView = itemView.findViewById(R.id.tv)
+        val row: TextView = itemView.findViewById(R.id.tv)
     }
 }

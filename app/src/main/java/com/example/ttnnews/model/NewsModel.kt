@@ -12,5 +12,5 @@ data class NewsModel(
     @SerializedName("description")
     var description: String,
 
-    var isFav:Boolean = false
+    var isFav: Boolean = false
 )

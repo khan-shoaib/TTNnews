@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.ttnnews.databse.AppRoomDatabase
 import com.example.ttnnews.databse.NewModelRoom
 import com.example.ttnnews.databse.RoomDatabaseBuilder
@@ -35,7 +34,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
                 response: Response<DataModel>
             ) {
 
-                mutableLiveDataNews.value = response.body()!!.data;
+                mutableLiveDataNews.value = response.body()!!.data
 
             }
 
@@ -45,7 +44,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
                 mutableLiveDataerror.value = call.toString()
             }
         })
-     return  mutableLiveDataNews;
+     return  mutableLiveDataNews
     }
 
     fun getMutableLiveDataSearch(key:String,sourcename:String,searchtext:String): MutableLiveData<List<NewsModel>> {
@@ -56,7 +55,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
                 response: Response<DataModel>
             ) {
 
-                mutableLiveDataNewsSearch.value = response.body()!!.data;
+                mutableLiveDataNewsSearch.value = response.body()!!.data
 
             }
 
@@ -66,7 +65,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
                 mutableLiveDataerror.value = call.toString()
             }
         })
-     return  mutableLiveDataNewsSearch;
+     return  mutableLiveDataNewsSearch
     }
 
 
@@ -81,7 +80,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
         roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(getApplication<Application>().applicationContext)
         Executors.newSingleThreadExecutor().execute {
             val _databaseList = roomDatabaseBuilder.newsDao().getAllData()
-         mutableLiveDataNewsRoom.postValue(_databaseList);
+         mutableLiveDataNewsRoom.postValue(_databaseList)
         }
 
 

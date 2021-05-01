@@ -8,17 +8,17 @@ import com.example.ttnnews.R
 
 
 class WebViewActivity : AppCompatActivity() {
-    var webview: WebView? = null
+    private lateinit var webview: WebView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
         webview = findViewById(R.id.web_view)
-        webview!!.setWebViewClient(MyWebViewClient())
+        webview.webViewClient = MyWebViewClient()
 
-        if(intent.hasExtra("url")){
+        if (intent.hasExtra("url")) {
 
-            if(intent.getStringExtra("url")!!.isNotBlank()){
-                webview!!.loadUrl(intent.getStringExtra("url")!!);
+            if (intent.getStringExtra("url")!!.isNotBlank()) {
+                webview.loadUrl(intent.getStringExtra("url")!!)
 
             }
         }
@@ -31,4 +31,5 @@ class WebViewActivity : AppCompatActivity() {
             view.loadUrl(url)
             return true
         }
-    }}
+    }
+}

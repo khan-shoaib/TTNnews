@@ -6,17 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ttnnews.model.NewsModel
 import com.example.ttnnews.R
-import com.example.ttnnews.databse.NewModelRoom
+import com.example.ttnnews.model.NewsModel
 
 class SubCategoryAdapter(
     private val context: Context,
     private var list: List<NewsModel>,
-    private val clickListenerFav: (NewsModel,Int) -> Unit,
+    private val clickListenerFav: (NewsModel, Int) -> Unit,
 ) : RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>() {
 
 
@@ -35,22 +33,23 @@ class SubCategoryAdapter(
 
         holder.title.text = list[position].title
         holder.description.text = list[position].description
-        if(list[position].isFav)
+        if (list[position].isFav)
             holder.imgFav.setImageResource(R.drawable.ic_action_fav)
-            else
+        else
             holder.imgFav.setImageResource(R.drawable.ic_action_unfav)
 
         holder.title.setOnClickListener {
 
-            clickListenerFav(list[position],0)
+            clickListenerFav(list[position], 0)
         }
 
         holder.image.setOnClickListener {
-            clickListenerFav(list[position],1)
+            clickListenerFav(list[position], 1)
         }
 
         val img = list[position].image
-        Glide.with(context).load(img).placeholder(R.drawable.ic_launcher_foreground).into(holder.image)
+        Glide.with(context).load(img).placeholder(R.drawable.ic_launcher_foreground)
+            .into(holder.image)
     }
 
     override fun getItemCount(): Int {

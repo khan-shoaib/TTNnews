@@ -6,31 +6,31 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ttnnews.databse.RoomDatabaseBuilder
 import com.example.ttnnews.R
 import com.example.ttnnews.databse.NewModelRoom
+import com.example.ttnnews.databse.RoomDatabaseBuilder
 import com.example.ttnnews.viewmodel.FavViewModel
-import com.example.ttnnews.viewmodel.MyViewModel
 import com.example.ttnnews.webview.WebViewActivity
 import java.util.concurrent.Executors
 
 class FavActivity : AppCompatActivity() {
-    var rc_fav: RecyclerView? = null
-    var favAdapter: FavAdapter?=null
-    private lateinit var favViewModel : FavViewModel
+    lateinit var rc_fav: RecyclerView
+    lateinit var favAdapter: FavAdapter
+    private lateinit var favViewModel: FavViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fav_view)
-        favViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(FavViewModel::class.java)
+        favViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+            .create(FavViewModel::class.java)
         rc_fav = findViewById(R.id.rc_fav)
-        rc_fav!!.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rc_fav.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(this)
-        favViewModel.getRoomData().observe(this,{
+        favViewModel.getRoomData().observe(this, {
 
-            favAdapter = FavAdapter(this,list = it)
-            rc_fav!!.adapter = favAdapter
-            favAdapter!!.onItemClick = { newsdata ->
+            favAdapter = FavAdapter(this, list = it)
+            rc_fav.adapter = favAdapter
+            favAdapter.onItemClick = { newsdata ->
                 if (newsdata.isFav!!) {
                     Executors.newSingleThreadExecutor().execute {
 
@@ -63,10 +63,10 @@ class FavActivity : AppCompatActivity() {
                     newsdata.isFav = true
                 }
                 runOnUiThread {
-                    favAdapter!!.notifyDataSetChanged()
+                    favAdapter.notifyDataSetChanged()
                 }
             }
-            favAdapter!!.onTitleClick = { newsModel ->
+            favAdapter.onTitleClick = { newsModel ->
                 val intent = Intent(this, WebViewActivity::class.java)
                 intent.putExtra("url", newsModel.url)
                 startActivity(intent)
