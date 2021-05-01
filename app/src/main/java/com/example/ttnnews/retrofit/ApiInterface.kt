@@ -10,7 +10,8 @@ interface ApiInterface {
     fun getNews(
         @Query("access_key") key: String,
         @Query("languages") language: String,
-        @Query("catgories") sourceName: String?
+        @Query("catgories") sourceName: String?,
+        @Query("limit") limit:Int
     ): Call<DataModel>
 
 
@@ -19,7 +20,9 @@ interface ApiInterface {
         @Query("access_key") key: String,
         @Query("languages") language: String,
         @Query("catgories") sourceName: String?,
-        @Query("search") search: String?
+        @Query("search") search: String?,
+        @Query("limit") limit:Int
+
     ): Call<DataModel>
 
 

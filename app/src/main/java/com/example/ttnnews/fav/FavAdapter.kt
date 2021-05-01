@@ -20,8 +20,8 @@ class FavAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.imageView)
-        val title: TextView = view.findViewById(R.id.textView1)
-        val description: TextView = view.findViewById(R.id.textView2)
+        val title: TextView = view.findViewById(R.id.title)
+        val description: TextView = view.findViewById(R.id.description)
         val imgFav: ImageView = view.findViewById(R.id.imgfav)
     }
 
@@ -40,7 +40,7 @@ class FavAdapter(
         holder.title.setOnClickListener { onTitleClick!!.invoke(list[position]) }
         holder.image.setOnClickListener { onItemClick!!.invoke(list[position]) }
         val img = list[position].image
-        Glide.with(context).load(img).placeholder(R.drawable.ic_launcher_foreground)
+        Glide.with(context).load(img).placeholder(R.drawable.ic_action_image)
             .into(holder.image)
     }
 

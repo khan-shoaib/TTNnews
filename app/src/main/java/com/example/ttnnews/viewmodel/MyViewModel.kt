@@ -27,7 +27,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
 
 
     fun getMutableLiveData(key:String,sourcename:String): MutableLiveData<List<NewsModel>> {
-        val call = ApiClient.getClient.getNews(key, "en", sourcename)
+        val call = ApiClient.getClient.getNews(key, "en", sourcename,100)
         call.enqueue(object : Callback<DataModel> {
             override fun onResponse(
                 call: retrofit2.Call<DataModel>,
@@ -48,7 +48,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
     }
 
     fun getMutableLiveDataSearch(key:String,sourcename:String,searchtext:String): MutableLiveData<List<NewsModel>> {
-        val call = ApiClient.getClient.getNewsSearch(key, "en",sourcename, searchtext)
+        val call = ApiClient.getClient.getNewsSearch(key, "en",sourcename, searchtext,100)
         call.enqueue(object : Callback<DataModel> {
             override fun onResponse(
                 call: retrofit2.Call<DataModel>,

@@ -29,7 +29,7 @@ class SubCategoryActivity : AppCompatActivity() {
     private val KEY = "8f4f5d6c37ee3540afb179e31b506364"
     private lateinit var customAdapter: SubCategoryAdapter
 
-    var sourceName: String? = null
+    lateinit var sourceName: String
     private lateinit var myViewModel: MyViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +39,8 @@ class SubCategoryActivity : AppCompatActivity() {
             .create(MyViewModel::class.java)
 
         if (intent.hasExtra("sourcename")) {
-            sourceName = intent.getStringExtra("sourcename")
-            Log.i("SorceName", sourceName!!)
+            sourceName = intent.getStringExtra("sourcename").toString()
+            Log.i("SorceName", sourceName)
         }
         recyclerView = findViewById(R.id.recyclerView)
         edSearch = findViewById(R.id.ed_search)
@@ -65,7 +65,7 @@ class SubCategoryActivity : AppCompatActivity() {
                             )
                         )
                     }
-                    // remove from tabale
+                    // remove from table
 
                     newsdata.isFav = false
                 } else {
@@ -100,7 +100,7 @@ class SubCategoryActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
                 if (s.isNullOrEmpty()) {
-                    myViewModel.getMutableLiveData(KEY, sourceName!!)
+                    myViewModel.getMutableLiveData(KEY, sourceName)
                         .observe(this@SubCategoryActivity, {
                             if (it.isNotEmpty()) {
                                 if (dataList.size > 0)
@@ -118,7 +118,7 @@ class SubCategoryActivity : AppCompatActivity() {
 
 
                 } else {
-                    myViewModel.getMutableLiveDataSearch(KEY, sourceName!!, s.toString())
+                    myViewModel.getMutableLiveDataSearch(KEY, sourceName, s.toString())
                         .observe(this@SubCategoryActivity, {
                             if (it.isNotEmpty()) {
                                 if (dataList.size > 0)
@@ -140,7 +140,7 @@ class SubCategoryActivity : AppCompatActivity() {
             }
         })
 
-        myViewModel.getMutableLiveData(KEY, sourceName!!).observe(this, {
+        myViewModel.getMutableLiveData(KEY, sourceName).observe(this, {
             if (it.isNotEmpty()) {
                 if (dataList.size > 0)
                     dataList.clear()

@@ -16,7 +16,7 @@ class CategoryAdapter(var myArrayList: ArrayList<CategoryModel>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         return CustomViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.row_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.category_row, parent, false)
         )
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ttnnews.fav.FavActivity
+import kotlinx.android.synthetic.main.welcome_screen.*
 
 class WelcomeScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,7 @@ class WelcomeScreen : AppCompatActivity() {
             // start your savednews activity
             startActivity(intent)
         }
+
 
     }
 }
