@@ -1,4 +1,4 @@
-package com.example.androidbootcamp2021.roomdemo
+package com.example.ttnnews.databse
 
 import android.content.Context
 import androidx.room.Room

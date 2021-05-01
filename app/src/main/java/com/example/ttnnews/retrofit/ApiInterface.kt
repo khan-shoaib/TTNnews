@@ -1,6 +1,6 @@
-package com.example.finalapp.retrofit
+package com.example.ttnnews.retrofit
 
-import com.example.finalapp.model.DataModel
+import com.example.ttnnews.model.DataModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -10,7 +10,7 @@ interface ApiInterface {
     fun getNews(
         @Query("access_key") key: String,
         @Query("languages") language: String,
-        @Query("sources") sourceName: String?
+        @Query("catgories") sourceName: String?
     ): Call<DataModel>
 
 
@@ -18,7 +18,7 @@ interface ApiInterface {
     fun getNewsSearch(
         @Query("access_key") key: String,
         @Query("languages") language: String,
-        @Query("sources") sourceName: String?,
+        @Query("catgories") sourceName: String?,
         @Query("search") search: String?
     ): Call<DataModel>
 

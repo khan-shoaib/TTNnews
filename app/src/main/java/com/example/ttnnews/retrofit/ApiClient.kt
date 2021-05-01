@@ -1,4 +1,4 @@
-package com.example.finalapp.retrofit
+package com.example.ttnnews.retrofit
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

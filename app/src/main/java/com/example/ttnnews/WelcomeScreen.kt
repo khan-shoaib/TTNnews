@@ -11,6 +11,7 @@ class WelcomeScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.welcome_screen)
         val btn_news = findViewById<Button>(R.id.btn_news)
+
         btn_news.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             // start your news activity
