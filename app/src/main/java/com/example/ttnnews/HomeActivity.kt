@@ -11,7 +11,5 @@ class HomeActivity : AppCompatActivity() {
 
         val categoryFrag = CategoryFrag()
         supportFragmentManager.beginTransaction().add(R.id.container, categoryFrag).commit()
-
-
     }
 }
