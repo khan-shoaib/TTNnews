@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ttnnews.Constants.Constant
 import com.example.ttnnews.R
-import com.example.ttnnews.model.CategoryModel
 
 class CategoryFrag : Fragment() {
 
@@ -24,16 +24,9 @@ class CategoryFrag : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val myArrayList = ArrayList<CategoryModel>()
-        myArrayList.add(CategoryModel("Business"))
-        myArrayList.add(CategoryModel("General"))
-        myArrayList.add(CategoryModel("Entertainment"))
-        myArrayList.add(CategoryModel("Health"))
-        myArrayList.add(CategoryModel("Science"))
-        myArrayList.add(CategoryModel("Sports"))
-        myArrayList.add(CategoryModel("Technology"))
 
-        val adapter = CategoryAdapter(myArrayList)
+
+        val adapter = CategoryAdapter(Constant.getCatergoryData())
         rcView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         rcView.adapter = adapter
 

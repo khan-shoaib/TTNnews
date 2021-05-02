@@ -18,9 +18,6 @@ import java.util.concurrent.Executors
 class MyViewModel(application: Application) : AndroidViewModel(application)  {
     private val mutableLiveDataNews: MutableLiveData<List<NewsModel>> = MutableLiveData<List<NewsModel>>()
     private val mutableLiveDataNewsSearch: MutableLiveData<List<NewsModel>> = MutableLiveData<List<NewsModel>>()
-
-
-
     private val mutableLiveDataNewsRoom: MutableLiveData<List<NewModelRoom>> = MutableLiveData<List<NewModelRoom>>()
     private val mutableLiveDataerror: MutableLiveData<String> = MutableLiveData<String>()
     private lateinit var roomDatabaseBuilder: AppRoomDatabase
@@ -53,10 +50,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
             override fun onResponse(
                 call: retrofit2.Call<DataModel>,
                 response: Response<DataModel>
-            ) {
-
-                mutableLiveDataNewsSearch.value = response.body()!!.data
-
+            ) {mutableLiveDataNewsSearch.value = response.body()!!.data
             }
 
             override fun onFailure(call: retrofit2.Call<DataModel>, t: Throwable) {
@@ -67,12 +61,6 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
         })
      return  mutableLiveDataNewsSearch
     }
-
-
-
-
-
-
     fun getErrorLiveData(): MutableLiveData<String>{
         return  mutableLiveDataerror
     }
@@ -80,10 +68,8 @@ class MyViewModel(application: Application) : AndroidViewModel(application)  {
         roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(getApplication<Application>().applicationContext)
         Executors.newSingleThreadExecutor().execute {
             val _databaseList = roomDatabaseBuilder.newsDao().getAllData()
-         mutableLiveDataNewsRoom.postValue(_databaseList)
+            mutableLiveDataNewsRoom.postValue(_databaseList)
         }
-
-
         return  mutableLiveDataNewsRoom
     }
 }

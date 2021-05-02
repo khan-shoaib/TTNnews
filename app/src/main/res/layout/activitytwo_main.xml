@@ -17,6 +17,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_search" />
 
+    <ImageView
+        android:id="@+id/imgnointernetnet"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_action_nointernet"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed_search" />
+
+    <TextView
+        android:id="@+id/tvnointernet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_internet_available"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/imgnointernetnet"
+        app:layout_constraintStart_toStartOf="@+id/imgnointernetnet"
+        app:layout_constraintTop_toBottomOf="@+id/imgnointernetnet" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/prbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerView" />
     <EditText
         android:id="@+id/ed_search"
         android:layout_width="0dp"

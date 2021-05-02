@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ttnnews.Constants.Constant
 import com.example.ttnnews.R
 
 
@@ -15,17 +16,12 @@ class WebViewActivity : AppCompatActivity() {
         webview = findViewById(R.id.web_view)
         webview.webViewClient = MyWebViewClient()
 
-        if (intent.hasExtra("url")) {
-
-            if (intent.getStringExtra("url")!!.isNotBlank()) {
-                webview.loadUrl(intent.getStringExtra("url")!!)
-
+        if (intent.hasExtra(Constant.URL)) {
+            if (intent.getStringExtra(Constant.URL)!!.isNotBlank()) {
+                webview.loadUrl(intent.getStringExtra(Constant.URL)!!)
             }
         }
-
-
     }
-
     class MyWebViewClient : WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
             view.loadUrl(url)

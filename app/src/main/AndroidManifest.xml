@@ -4,6 +4,7 @@
     package="com.example.ttnnews">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,18 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TTNnews"
         android:usesCleartextTraffic="true"
+
         tools:targetApi="m">
-        <activity android:name=".webview.WebViewActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".subcategory.SubCategoryActivity" />
-        <activity android:name=".WelcomeScreen">
+        <activity android:name=".webview.WebViewActivity" android:screenOrientation="portrait" />
+        <activity android:name=".HomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".subcategory.SubCategoryActivity" android:screenOrientation="portrait" />
+        <activity android:name=".WelcomeScreen" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fav.FavActivity" />
+        <activity android:name=".fav.FavActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

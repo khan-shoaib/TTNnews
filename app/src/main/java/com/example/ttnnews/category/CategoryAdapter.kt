@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ttnnews.Constants.Constant
 import com.example.ttnnews.R
 import com.example.ttnnews.model.CategoryModel
 import com.example.ttnnews.subcategory.SubCategoryActivity
@@ -26,7 +27,7 @@ class CategoryAdapter(var myArrayList: ArrayList<CategoryModel>) :
 
 
             val intent = Intent(holder.itemView.context, SubCategoryActivity::class.java)
-            intent.putExtra("sourcename", myArrayList[position].name)
+            intent.putExtra(Constant.SOURCENAME, myArrayList[position].name)
 
             holder.itemView.context.startActivity(intent)
 

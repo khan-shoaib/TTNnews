@@ -2,7 +2,10 @@ package com.example.ttnnews
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ttnnews.fav.FavActivity
 import kotlinx.android.synthetic.main.welcome_screen.*
@@ -23,6 +26,9 @@ class WelcomeScreen : AppCompatActivity() {
             val intent = Intent(this, FavActivity::class.java)
             // start your savednews activity
             startActivity(intent)
+
+
+
         }
 
 

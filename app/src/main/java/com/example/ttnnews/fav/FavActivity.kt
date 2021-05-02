@@ -2,6 +2,10 @@ package com.example.ttnnews.fav
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +19,8 @@ import java.util.concurrent.Executors
 
 class FavActivity : AppCompatActivity() {
     lateinit var rc_fav: RecyclerView
+    lateinit var tvNodata: TextView
+    lateinit var imgnodata: ImageView
     lateinit var favAdapter: FavAdapter
     private lateinit var favViewModel: FavViewModel
 
@@ -24,10 +30,17 @@ class FavActivity : AppCompatActivity() {
         favViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
             .create(FavViewModel::class.java)
         rc_fav = findViewById(R.id.rc_fav)
+        tvNodata = findViewById(R.id.tvNodata)
+        imgnodata = findViewById(R.id.imgnodata)
         rc_fav.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(this)
         favViewModel.getRoomData().observe(this, {
-
+            if(it.isEmpty())
+            {
+                tvNodata.visibility = View.VISIBLE
+                imgnodata.visibility = View.VISIBLE
+                return@observe
+            }
             favAdapter = FavAdapter(this, list = it)
             rc_fav.adapter = favAdapter
             favAdapter.onItemClick = { newsdata ->
