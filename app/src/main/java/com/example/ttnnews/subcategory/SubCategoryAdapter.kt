@@ -14,11 +14,10 @@ import com.example.ttnnews.model.NewsModel
 class SubCategoryAdapter(
     private val context: Context,
     private var list: List<NewsModel>,
-    private val clickListenerFav: (NewsModel, Int) -> Unit,
-) : RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>() {
+    private val clickListenerFav: (NewsModel, Int) -> Unit,) : RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>()
+{
 
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+   class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.imageView)
         val title: TextView = view.findViewById(R.id.title)
         val description: TextView = view.findViewById(R.id.description)

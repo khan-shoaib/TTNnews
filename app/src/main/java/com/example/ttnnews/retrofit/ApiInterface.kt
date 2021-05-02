@@ -11,9 +11,9 @@ interface ApiInterface {
         @Query("access_key") key: String,
         @Query("languages") language: String,
         @Query("catgories") sourceName: String?,
-        @Query("limit") limit:Int
+        @Query("limit") limit:Int,
+        @Query("countries") country:String
     ): Call<DataModel>
-
 
     @GET("news")
     fun getNewsSearch(
@@ -21,9 +21,9 @@ interface ApiInterface {
         @Query("languages") language: String,
         @Query("catgories") sourceName: String?,
         @Query("search") search: String?,
-        @Query("limit") limit:Int
+        @Query("limit") limit:Int,
+        @Query("countries") country:String
+
 
     ): Call<DataModel>
-
-
 }

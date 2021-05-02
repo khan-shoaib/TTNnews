@@ -28,7 +28,7 @@ class SubCategoryActivity : AppCompatActivity() {
     private var rcNews: RecyclerView? = null
     private var imgNointernet: ImageView? = null
     private var tvNointernet: TextView? = null
-    private var edSearch: EditText? = null
+    private var edSearch: EditText?=null
     var dataList = ArrayList<NewsModel>()
 
     private lateinit var customAdapter: SubCategoryAdapter
@@ -105,7 +105,7 @@ class SubCategoryActivity : AppCompatActivity() {
         rcNews!!.adapter = customAdapter
         val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rcNews!!.layoutManager = linearLayoutManager
-        edSearch!!.addTextChangedListener(object : TextWatcher {
+        edSearch?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
