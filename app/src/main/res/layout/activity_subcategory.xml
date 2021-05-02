@@ -10,8 +10,8 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +21,8 @@
         android:id="@+id/imgnointernetnet"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:visibility="gone"
         android:src="@drawable/ic_action_nointernet"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,8 +32,8 @@
         android:id="@+id/tvnointernet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_internet_available"
         android:layout_marginTop="10dp"
+        android:text="@string/no_internet_available"
         android:textSize="20sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/imgnointernetnet"
@@ -41,27 +41,26 @@
         app:layout_constraintTop_toBottomOf="@+id/imgnointernetnet" />
 
     <ProgressBar
-        android:visibility="gone"
         android:id="@+id/prbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
 
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recyclerView" />
+
     <EditText
         android:id="@+id/ed_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:inputType="textPersonName"
+        android:drawableStart="@android:drawable/ic_menu_search"
         android:hint="@string/please_enter_search_term"
-        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:drawableStart="@android:drawable/ic_menu_search"
-         />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

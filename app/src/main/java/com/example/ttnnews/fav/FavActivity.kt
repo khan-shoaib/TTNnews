@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,8 +34,7 @@ class FavActivity : AppCompatActivity() {
         rc_fav.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(this)
         favViewModel.getRoomData().observe(this, {
-            if(it.isEmpty())
-            {
+            if (it.isEmpty()) {
                 tvNodata.visibility = View.VISIBLE
                 imgnodata.visibility = View.VISIBLE
                 return@observe

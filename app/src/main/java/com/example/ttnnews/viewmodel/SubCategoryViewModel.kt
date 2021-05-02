@@ -15,7 +15,7 @@ import retrofit2.Response
 import java.util.concurrent.Executors
 
 
-class MyViewModel(application: Application) : AndroidViewModel(application)  {
+class SubCategoryViewModel(application: Application) : AndroidViewModel(application)  {
     private val mutableLiveDataNews: MutableLiveData<List<NewsModel>> = MutableLiveData<List<NewsModel>>()
     private val mutableLiveDataNewsSearch: MutableLiveData<List<NewsModel>> = MutableLiveData<List<NewsModel>>()
     private val mutableLiveDataNewsRoom: MutableLiveData<List<NewModelRoom>> = MutableLiveData<List<NewModelRoom>>()

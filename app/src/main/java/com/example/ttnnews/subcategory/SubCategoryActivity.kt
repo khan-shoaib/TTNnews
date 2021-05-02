@@ -17,7 +17,7 @@ import com.example.ttnnews.databse.AppRoomDatabase
 import com.example.ttnnews.databse.NewModelRoom
 import com.example.ttnnews.databse.RoomDatabaseBuilder
 import com.example.ttnnews.model.NewsModel
-import com.example.ttnnews.viewmodel.MyViewModel
+import com.example.ttnnews.viewmodel.SubCategoryViewModel
 import com.example.ttnnews.webview.WebViewActivity
 import kotlinx.android.synthetic.main.fav_view.*
 import java.util.concurrent.Executors
@@ -35,10 +35,10 @@ class SubCategoryActivity : AppCompatActivity() {
     lateinit var bar: ProgressBar
 
     lateinit var sourceName: String
-    private lateinit var myViewModel: MyViewModel
+    private lateinit var subCategoryViewModel: SubCategoryViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activitytwo_main)
+        setContentView(R.layout.activity_subcategory)
         findviews()
         if (!Constant.isOnline(applicationContext)) {
             tvNointernet!!.visibility = View.VISIBLE
@@ -48,8 +48,8 @@ class SubCategoryActivity : AppCompatActivity() {
 
 
 
-        myViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-            .create(MyViewModel::class.java)
+        subCategoryViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+            .create(SubCategoryViewModel::class.java)
 
         if (intent.hasExtra(Constant.SOURCENAME)) {
             sourceName = intent.getStringExtra(Constant.SOURCENAME).toString()
@@ -124,7 +124,7 @@ class SubCategoryActivity : AppCompatActivity() {
                 }
 
                 if (s.isNullOrEmpty()) {
-                    myViewModel.getMutableLiveData(Constant.API_KEY, sourceName)
+                    subCategoryViewModel.getMutableLiveData(Constant.API_KEY, sourceName)
                         .observe(this@SubCategoryActivity, {
                             if (it.isNotEmpty()) {
                                 if (dataList.size > 0)
@@ -142,7 +142,11 @@ class SubCategoryActivity : AppCompatActivity() {
 
 
                 } else {
-                    myViewModel.getMutableLiveDataSearch(Constant.API_KEY, sourceName, s.toString())
+                    subCategoryViewModel.getMutableLiveDataSearch(
+                        Constant.API_KEY,
+                        sourceName,
+                        s.toString()
+                    )
                         .observe(this@SubCategoryActivity, {
                             if (it.isNotEmpty()) {
                                 if (dataList.size > 0)
@@ -164,7 +168,7 @@ class SubCategoryActivity : AppCompatActivity() {
             }
         })
         bar.visibility = View.VISIBLE
-        myViewModel.getMutableLiveData(Constant.API_KEY, sourceName).observe(this, {
+        subCategoryViewModel.getMutableLiveData(Constant.API_KEY, sourceName).observe(this, {
             bar.visibility = View.GONE
 
             if (it.isNotEmpty()) {
@@ -176,7 +180,7 @@ class SubCategoryActivity : AppCompatActivity() {
             } else
                 Toast.makeText(applicationContext, "No Item found", Toast.LENGTH_SHORT).show()
         })
-        myViewModel.getErrorLiveData().observe(this, {
+        subCategoryViewModel.getErrorLiveData().observe(this, {
             if (it.isNotEmpty())
                 Toast.makeText(applicationContext, it.toString(), Toast.LENGTH_SHORT).show()
         })
@@ -194,7 +198,7 @@ class SubCategoryActivity : AppCompatActivity() {
 
 
     private fun checkAlreadySelected() {
-        myViewModel.getRoomData().observe(this, {
+        subCategoryViewModel.getRoomData().observe(this, {
             if (it.isNotEmpty()) {  // set data to true if any marked fav
                 for (item in dataList) {
                     for (data in it) {
