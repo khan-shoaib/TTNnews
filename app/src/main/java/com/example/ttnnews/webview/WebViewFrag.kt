@@ -1,19 +1,19 @@
 package com.example.ttnnews.webview
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.fragment.app.Fragment
 import com.example.ttnnews.R
 import com.example.ttnnews.constants.Constant
 
 class WebViewFrag : Fragment() {
-    private lateinit var  webview: WebView
+    private lateinit var webview: WebView
 
     private var param1: String? = null
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,9 +28,9 @@ class WebViewFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.activity_web_view, container, false)
-       webview =  view.findViewById<WebView>(R.id.web_view)
-        return  view
+        val view = inflater.inflate(R.layout.activity_web_view, container, false)
+        webview = view.findViewById(R.id.web_view)
+        return view
     }
 
     companion object {
@@ -45,7 +45,14 @@ class WebViewFrag : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        webview.webViewClient = WebViewActivity.MyWebViewClient()
-       webview.loadUrl(arguments!!.getString(Constant.URL)!!)
+        webview.webViewClient = MyWebViewClient()
+        webview.loadUrl(arguments!!.getString(Constant.URL)!!)
+    }
+
+    class MyWebViewClient : WebViewClient() {
+        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+            view.loadUrl(url)
+            return true
+        }
     }
 }
