@@ -20,7 +20,7 @@ import com.example.ttnnews.viewmodel.SubCategoryViewModel
 import kotlinx.android.synthetic.main.fav_view.*
 import java.util.concurrent.Executors
 
-class SubCategoryActivity : AppCompatActivity() {
+class SubCategoryActivity : AppCompatActivity() {/*This activity is not in use now*/
 
     private lateinit var roomDatabaseBuilder: AppRoomDatabase
     private lateinit var rcNews: RecyclerView

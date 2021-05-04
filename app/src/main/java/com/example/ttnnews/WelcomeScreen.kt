@@ -6,6 +6,11 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ttnnews.fav.FragFav
 
+
+/*This activity is not in use now*/
+
+
+
 class WelcomeScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

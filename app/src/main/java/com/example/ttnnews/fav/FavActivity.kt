@@ -1,5 +1,7 @@
 package com.example.ttnnews.fav
-
+/*
+ * This activity is not in use now
+ */
 import android.content.Intent
 import android.os.Bundle
 import android.view.View

@@ -1,16 +1,11 @@
 <resources>
     <string name="app_name">TTN news</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hello">Hello</string>
-    <string name="go_live_news">Go live news</string>
     <string name="news">news</string>
     <string name="saved_news">saved news</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="please_enter_search_term">Please enter search term</string>
-    <string name="categories">Categories</string>
-    <string name="there_is_nothing_in_saved_item">There is nothing in saved item!!</string>
     <string name="no_internet_available">No internet available</string>
     <string name="no_data_avaliable">No Data avaliable</string>
     <string name="clickme">ClickMe</string>

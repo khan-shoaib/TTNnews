@@ -1,13 +1,12 @@
 package com.example.ttnnews.fav
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,6 @@ import com.example.ttnnews.R
 import com.example.ttnnews.databse.NewModelRoom
 import com.example.ttnnews.databse.RoomDatabaseBuilder
 import com.example.ttnnews.viewmodel.FavViewModel
-import com.example.ttnnews.webview.WebViewActivity
 import com.example.ttnnews.webview.WebViewFrag
 import java.util.concurrent.Executors
 
@@ -31,9 +29,9 @@ class FragFav : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view   =  inflater.inflate(R.layout.fav_view, container, false)
+        val view = inflater.inflate(R.layout.fav_view, container, false)
         findview(view)
-        return view;
+        return view
     }
 
 
@@ -43,7 +41,8 @@ class FragFav : Fragment() {
         favViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)
             .create(FavViewModel::class.java)
 
-        rc_fav.layoutManager = LinearLayoutManager(activity!!.applicationContext, RecyclerView.VERTICAL, false)
+        rc_fav.layoutManager =
+            LinearLayoutManager(activity!!.applicationContext, RecyclerView.VERTICAL, false)
         val roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(activity!!.applicationContext)
         favViewModel.getRoomData().observe(this, {
             if (it.isEmpty()) {
@@ -92,8 +91,8 @@ class FragFav : Fragment() {
 //                intent.putExtra("url", newsModel.url)
 //                startActivity(intent)
                 val frag = WebViewFrag.newInstance(newsModel.url!!)
-                activity!!.supportFragmentManager.beginTransaction().replace(R.id.container,frag).addToBackStack(null).commit()
-
+                activity!!.supportFragmentManager.beginTransaction().replace(R.id.container, frag)
+                    .addToBackStack(null).commit()
 
 
             }

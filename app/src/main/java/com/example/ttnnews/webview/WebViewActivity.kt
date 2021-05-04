@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.ttnnews.constants.Constant
 import com.example.ttnnews.R
 
+//This class will not be used in application
+
 
 class WebViewActivity : AppCompatActivity() {
     private lateinit var webview: WebView

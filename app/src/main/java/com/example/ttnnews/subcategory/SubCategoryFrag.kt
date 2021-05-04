@@ -44,26 +44,25 @@ class SubCategoryFrag : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =  inflater.inflate(R.layout.activity_subcategory, container, false)
+        val view = inflater.inflate(R.layout.activity_subcategory, container, false)
         findviews(view)
-    return  view
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel =  ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)
             .create(SubViewModel(activity!!.application)::class.java)
 
 
-        if(arguments!!.getString(Constant.SOURCENAME)!!.isNotEmpty()){
+        if (arguments!!.getString(Constant.SOURCENAME)!!.isNotEmpty()) {
             sourceName = arguments!!.getString(Constant.SOURCENAME)!!
         }
 
         if (!Constant.isOnline(activity!!.application))  //internet check
         {
-            tvNointernet.visibility = View.VISIBLE
-            imgNointernet.visibility = View.VISIBLE
+            visibilty()
             return
         }
 
@@ -72,73 +71,71 @@ class SubCategoryFrag : Fragment() {
 
 
         roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(activity!!.application)
-        customAdapter = SubCategoryAdapter(activity!!.application, dataList) { newsdata: NewsModel, type: Int ->
+        customAdapter =
+            SubCategoryAdapter(activity!!.application, dataList) { newsdata: NewsModel, type: Int ->
 
-            if (type == 0) {  // title clicked
+                if (type == 0) {  // title clicked
 //                val intent = Intent(activity!!.application, WebViewActivity::class.java)
 //                intent.putExtra(Constant.URL, newsdata.url)
 //                startActivity(intent)
-                val frag = WebViewFrag.newInstance(newsdata.url)
-                activity!!.supportFragmentManager.beginTransaction().replace(R.id.container,frag).addToBackStack(null).commit()
+                    val frag = WebViewFrag.newInstance(newsdata.url)
+                    activity!!.supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, frag).addToBackStack(null).commit()
 
 
-            } else {   // favourite clicked
-                if (newsdata.isFav) {
-                    Executors.newSingleThreadExecutor().execute {
-                        roomDatabaseBuilder.newsDao().deleteData(
-                            NewModelRoom(
-                                title = newsdata.title,
-                                url = newsdata.url,
-                                image = newsdata.image,
-                                desc = newsdata.description,
-                                isFav = false
+                } else {   // favourite clicked
+                    if (newsdata.isFav) {
+                        Executors.newSingleThreadExecutor().execute {
+                            roomDatabaseBuilder.newsDao().deleteData(
+                                NewModelRoom(
+                                    title = newsdata.title,
+                                    url = newsdata.url,
+                                    image = newsdata.image,
+                                    desc = newsdata.description,
+                                    isFav = false
+                                )
                             )
-                        )
-                    }
-                    // remove from table
+                        }
+                        // remove from table
 
-                    newsdata.isFav = false
-                } else {
-                    Executors.newSingleThreadExecutor().execute {
-                        roomDatabaseBuilder.newsDao().insertData(
-                            NewModelRoom(
-                                title = newsdata.title,
-                                url = newsdata.url,
-                                image = newsdata.image,
-                                desc = newsdata.description,
-                                isFav = true
+                        newsdata.isFav = false
+                    } else {
+                        Executors.newSingleThreadExecutor().execute {
+                            roomDatabaseBuilder.newsDao().insertData(
+                                NewModelRoom(
+                                    title = newsdata.title,
+                                    url = newsdata.url,
+                                    image = newsdata.image,
+                                    desc = newsdata.description,
+                                    isFav = true
+                                )
                             )
-                        )
+                        }
+                        // insert val first time
+                        newsdata.isFav = true
                     }
-                    // inert val first time
-                    newsdata.isFav = true
+                    customAdapter.notifyDataSetChanged()
                 }
-                customAdapter.notifyDataSetChanged()
             }
-        }
 
         rcNews.adapter = customAdapter
-        val linearLayoutManager = LinearLayoutManager(activity!!.application, LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager =
+            LinearLayoutManager(activity!!.application, LinearLayoutManager.VERTICAL, false)
         rcNews.layoutManager = linearLayoutManager
         edSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int)
-            {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int)
-            {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
 
-                if (!Constant.isOnline(activity!!.application))
-                {
-                    tvNointernet.visibility = View.VISIBLE
-                    imgNointernet.visibility = View.VISIBLE
+                if (!Constant.isOnline(activity!!.application)) {
+                    visibilty()
                     rcNews.visibility = View.GONE
                     return
                 } else {
                     rcNews.visibility = View.VISIBLE
-                    tvNointernet.visibility = View.GONE
-                    imgNointernet.visibility = View.GONE
+                    gone()
                 }
 
                 if (s.isNullOrEmpty()) {
@@ -201,17 +198,21 @@ class SubCategoryFrag : Fragment() {
         // on failure toast message
         viewModel.getErrorLiveData().observe(this, {
             if (it.isNotEmpty())
-                Toast.makeText(activity!!.application, "Error from APi-->$it", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity!!.application, "Error from APi-->$it", Toast.LENGTH_SHORT)
+                    .show()
         })
         viewModel.getErrorLiveDataCode().observe(this, {
             if (it.isNotEmpty())
-                Toast.makeText(activity!!.application, "Error from Server--->$it", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity!!.application,
+                    "Error from Server--->$it",
+                    Toast.LENGTH_SHORT
+                ).show()
         })
 
 
-
-
     }
+
     private fun findviews(view: View) {
         bar = view.findViewById(R.id.prbar)
         rcNews = view.findViewById(R.id.recyclerView)
@@ -237,4 +238,13 @@ class SubCategoryFrag : Fragment() {
         })
     }
 
+    fun visibilty() {
+        tvNointernet.visibility = View.VISIBLE
+        imgNointernet.visibility = View.VISIBLE
+    }
+
+    fun gone() {
+        tvNointernet.visibility = View.GONE
+        imgNointernet.visibility = View.GONE
+    }
 }
