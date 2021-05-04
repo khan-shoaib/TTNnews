@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ttnnews.fav.FavActivity
+import com.example.ttnnews.fav.FragFav
 
 class WelcomeScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,8 +19,8 @@ class WelcomeScreen : AppCompatActivity() {
         }
         val btn_savednews = findViewById<Button>(R.id.btn_savednews)
         btn_savednews.setOnClickListener {
-            val intent = Intent(this, FavActivity::class.java)
-            // start your savednews activity
+            val intent = Intent(this, FragFav::class.java)
+            /* start your savednews activity */
             startActivity(intent)
 
 

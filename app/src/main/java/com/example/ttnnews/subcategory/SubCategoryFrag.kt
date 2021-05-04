@@ -3,10 +3,11 @@ package com.example.ttnnews.subcategory
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,11 +17,17 @@ import com.example.ttnnews.databse.AppRoomDatabase
 import com.example.ttnnews.databse.NewModelRoom
 import com.example.ttnnews.databse.RoomDatabaseBuilder
 import com.example.ttnnews.model.NewsModel
-import com.example.ttnnews.viewmodel.SubCategoryViewModel
-import kotlinx.android.synthetic.main.fav_view.*
+import com.example.ttnnews.viewmodel.SubViewModel
+import com.example.ttnnews.webview.WebViewFrag
 import java.util.concurrent.Executors
 
-class SubCategoryActivity : AppCompatActivity() {
+class SubCategoryFrag : Fragment() {
+
+    companion object {
+        fun newInstance() = SubCategoryFrag()
+    }
+
+    private lateinit var viewModel: SubViewModel
 
     private lateinit var roomDatabaseBuilder: AppRoomDatabase
     private lateinit var rcNews: RecyclerView
@@ -33,36 +40,46 @@ class SubCategoryActivity : AppCompatActivity() {
     lateinit var bar: ProgressBar
 
     lateinit var sourceName: String
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view =  inflater.inflate(R.layout.activity_subcategory, container, false)
+        findviews(view)
+    return  view
+    }
 
-    private lateinit var subCategoryViewModel: SubCategoryViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_subcategory)
-        findviews()
-        if (!Constant.isOnline(applicationContext))  //internet check
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewModel =  ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)
+            .create(SubViewModel(activity!!.application)::class.java)
+
+
+        if(arguments!!.getString(Constant.SOURCENAME)!!.isNotEmpty()){
+            sourceName = arguments!!.getString(Constant.SOURCENAME)!!
+        }
+
+        if (!Constant.isOnline(activity!!.application))  //internet check
         {
             tvNointernet.visibility = View.VISIBLE
             imgNointernet.visibility = View.VISIBLE
             return
         }
 
-        subCategoryViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-            .create(SubCategoryViewModel::class.java)
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)
+            .create(viewModel::class.java)
 
-        if (intent.hasExtra(Constant.SOURCENAME)) { // if contains sourcename
-            sourceName = intent.getStringExtra(Constant.SOURCENAME).toString()
-            Log.i(Constant.SOURCENAME, sourceName)
-        }
 
-        roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(this)
-        customAdapter = SubCategoryAdapter(this, dataList) { newsdata: NewsModel, type: Int ->
+        roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(activity!!.application)
+        customAdapter = SubCategoryAdapter(activity!!.application, dataList) { newsdata: NewsModel, type: Int ->
 
             if (type == 0) {  // title clicked
-//                val intent = Intent(this@SubCategoryActivity, WebViewActivity::class.java)
+//                val intent = Intent(activity!!.application, WebViewActivity::class.java)
 //                intent.putExtra(Constant.URL, newsdata.url)
 //                startActivity(intent)
-//
-//
+                val frag = WebViewFrag.newInstance(newsdata.url)
+                activity!!.supportFragmentManager.beginTransaction().replace(R.id.container,frag).addToBackStack(null).commit()
 
 
             } else {   // favourite clicked
@@ -101,16 +118,19 @@ class SubCategoryActivity : AppCompatActivity() {
         }
 
         rcNews.adapter = customAdapter
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager = LinearLayoutManager(activity!!.application, LinearLayoutManager.VERTICAL, false)
         rcNews.layoutManager = linearLayoutManager
         edSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int)
+            {
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int)
+            {
 
 
-                if (!Constant.isOnline(applicationContext)) {
+                if (!Constant.isOnline(activity!!.application))
+                {
                     tvNointernet.visibility = View.VISIBLE
                     imgNointernet.visibility = View.VISIBLE
                     rcNews.visibility = View.GONE
@@ -122,8 +142,8 @@ class SubCategoryActivity : AppCompatActivity() {
                 }
 
                 if (s.isNullOrEmpty()) {
-                    subCategoryViewModel.getMutableLiveData(Constant.API_KEY, sourceName)
-                        .observe(this@SubCategoryActivity, {
+                    viewModel.getMutableLiveData(Constant.API_KEY, sourceName)
+                        .observe(activity!!, {
                             if (it.isNotEmpty()) {
                                 if (dataList.size > 0)
                                     dataList.clear()
@@ -132,7 +152,7 @@ class SubCategoryActivity : AppCompatActivity() {
                                 checkAlreadySelected()
                             } else
                                 Toast.makeText(
-                                    applicationContext,
+                                    activity!!.application,
                                     "No Item found",
                                     Toast.LENGTH_SHORT
                                 ).show()
@@ -140,12 +160,12 @@ class SubCategoryActivity : AppCompatActivity() {
 
 
                 } else {
-                    subCategoryViewModel.getMutableLiveDataSearch(
+                    viewModel.getMutableLiveDataSearch(
                         Constant.API_KEY,
                         sourceName,
                         s.toString()
                     )
-                        .observe(this@SubCategoryActivity, {
+                        .observe(activity!!, {
                             if (it.isNotEmpty()) {
                                 if (dataList.size > 0)
                                     dataList.clear()
@@ -154,7 +174,7 @@ class SubCategoryActivity : AppCompatActivity() {
                                 checkAlreadySelected()
                             } else
                                 Toast.makeText(
-                                    applicationContext,
+                                    activity!!.application,
                                     "No Item found",
                                     Toast.LENGTH_SHORT
                                 ).show()
@@ -166,7 +186,7 @@ class SubCategoryActivity : AppCompatActivity() {
             }
         })
         bar.visibility = View.VISIBLE
-        subCategoryViewModel.getMutableLiveData(Constant.API_KEY, sourceName).observe(this, {
+        viewModel.getMutableLiveData(Constant.API_KEY, sourceName).observe(this, {
             bar.visibility = View.GONE
 
             if (it.isNotEmpty()) {
@@ -176,28 +196,33 @@ class SubCategoryActivity : AppCompatActivity() {
                 customAdapter.notifyDataSetChanged()
                 checkAlreadySelected()  // check if any already favorite
             } else
-                Toast.makeText(applicationContext, "No Item found", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity!!.application, "No Item found", Toast.LENGTH_SHORT).show()
         })
         // on failure toast message
-        subCategoryViewModel.getErrorLiveData().observe(this, {
+        viewModel.getErrorLiveData().observe(this, {
             if (it.isNotEmpty())
-                Toast.makeText(applicationContext, it.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity!!.application, "Error from APi-->$it", Toast.LENGTH_SHORT).show()
         })
+        viewModel.getErrorLiveDataCode().observe(this, {
+            if (it.isNotEmpty())
+                Toast.makeText(activity!!.application, "Error from Server--->$it", Toast.LENGTH_SHORT).show()
+        })
+
+
 
 
     }
-
-    private fun findviews() {
-        bar = findViewById(R.id.prbar)
-        rcNews = findViewById(R.id.recyclerView)
-        edSearch = findViewById(R.id.ed_search)
-        tvNointernet = findViewById(R.id.tvnointernet)
-        imgNointernet = findViewById(R.id.imgnointernetnet)
+    private fun findviews(view: View) {
+        bar = view.findViewById(R.id.prbar)
+        rcNews = view.findViewById(R.id.recyclerView)
+        edSearch = view.findViewById(R.id.ed_search)
+        tvNointernet = view.findViewById(R.id.tvnointernet)
+        imgNointernet = view.findViewById(R.id.imgnointernetnet)
     }
 
 
     private fun checkAlreadySelected() {
-        subCategoryViewModel.getRoomData().observe(this, {
+        viewModel.getRoomData().observe(this, {
             if (it.isNotEmpty()) {  // set data to true if any marked fav
                 for (item in dataList) {
                     for (data in it) {

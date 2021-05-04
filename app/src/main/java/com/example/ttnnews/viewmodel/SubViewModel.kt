@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.ttnnews.databse.AppRoomDatabase
 import com.example.ttnnews.databse.NewModelRoom
 import com.example.ttnnews.databse.RoomDatabaseBuilder
@@ -14,12 +15,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.concurrent.Executors
 
-
-class SubCategoryViewModel(application: Application) : AndroidViewModel(application)  {
+class SubViewModel(application: Application) : AndroidViewModel(application)  {
     private val mutableLiveDataNews: MutableLiveData<List<NewsModel>> = MutableLiveData<List<NewsModel>>()
     private val mutableLiveDataNewsSearch: MutableLiveData<List<NewsModel>> = MutableLiveData<List<NewsModel>>()
     private val mutableLiveDataNewsRoom: MutableLiveData<List<NewModelRoom>> = MutableLiveData<List<NewModelRoom>>()
     private val mutableLiveDataerror: MutableLiveData<String> = MutableLiveData<String>()
+    private val mutableLiveDataApiCode: MutableLiveData<String> = MutableLiveData<String>()
     private lateinit var roomDatabaseBuilder: AppRoomDatabase
 
 
@@ -30,18 +31,19 @@ class SubCategoryViewModel(application: Application) : AndroidViewModel(applicat
                 call: retrofit2.Call<DataModel>,
                 response: Response<DataModel>
             ) {
-
+                if(response.code()!=200){
+                    mutableLiveDataApiCode.value = response.code().toString()
+                    return
+                }
                 mutableLiveDataNews.value = response.body()!!.data
-
             }
-
             override fun onFailure(call: retrofit2.Call<DataModel>, t: Throwable) {
                 Log.i("Failure", "$call")
 
-                mutableLiveDataerror.value = call.toString()//api on failure results sub category
+                mutableLiveDataerror.value = t.localizedMessage//api on failure results sub category
             }
         })
-     return  mutableLiveDataNews
+        return  mutableLiveDataNews
     }
 
     fun getMutableLiveDataSearch(key:String,sourcename:String,searchtext:String): MutableLiveData<List<NewsModel>> {
@@ -51,21 +53,31 @@ class SubCategoryViewModel(application: Application) : AndroidViewModel(applicat
                 call: retrofit2.Call<DataModel>,
                 response: Response<DataModel>
             ) {
+
+                if(response.code()!=200){
+                    mutableLiveDataApiCode.value = response.code().toString()
+                    return
+                }
                 mutableLiveDataNewsSearch.value = response.body()!!.data
             }
 
             override fun onFailure(call: retrofit2.Call<DataModel>, t: Throwable) {
                 Log.i("Failure", "$call")
-
-                mutableLiveDataerror.value = call.toString() //api on failure `results search
+                mutableLiveDataerror.value = t.localizedMessage   //api on failure `results search
             }
         })
-     return  mutableLiveDataNewsSearch
+        return  mutableLiveDataNewsSearch
     }
-    fun getErrorLiveData(): MutableLiveData<String>{
+    fun getErrorLiveData(): MutableLiveData<String> {
         return  mutableLiveDataerror
     }
-    fun getRoomData(): MutableLiveData<List<NewModelRoom>>{
+
+    fun getErrorLiveDataCode(): MutableLiveData<String> {
+        return  mutableLiveDataApiCode
+    }
+
+
+    fun getRoomData(): MutableLiveData<List<NewModelRoom>> {
         roomDatabaseBuilder = RoomDatabaseBuilder.getInstance(getApplication<Application>().applicationContext)
         Executors.newSingleThreadExecutor().execute {
             val _databaseList = roomDatabaseBuilder.newsDao().getAllData()
@@ -73,5 +85,5 @@ class SubCategoryViewModel(application: Application) : AndroidViewModel(applicat
         }
         return  mutableLiveDataNewsRoom
     }
-}
 
+}

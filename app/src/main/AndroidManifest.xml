@@ -17,14 +17,16 @@
 
         tools:targetApi="m">
         <activity android:name=".webview.WebViewActivity" android:screenOrientation="portrait" />
-        <activity android:name=".HomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".subcategory.SubCategoryActivity" android:screenOrientation="portrait" />
-        <activity android:name=".WelcomeScreen" android:screenOrientation="portrait">
+        <activity android:name=".HomeActivity" android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".subcategory.SubCategoryActivity" android:screenOrientation="portrait" />
+        <activity android:name=".WelcomeScreen" android:screenOrientation="portrait">
+
         </activity>
         <activity android:name=".fav.FavActivity" android:screenOrientation="portrait"/>
     </application>

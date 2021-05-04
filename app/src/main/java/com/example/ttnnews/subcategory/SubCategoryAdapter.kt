@@ -16,20 +16,17 @@ class SubCategoryAdapter(
     private var list: List<NewsModel>,
     private val clickListenerFav: (NewsModel, Int) -> Unit,) : RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>()
 {
-
    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.imageView)
         val title: TextView = view.findViewById(R.id.title)
         val description: TextView = view.findViewById(R.id.description)
         val imgFav: ImageView = view.findViewById(R.id.imgfav)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.newsitem_view, parent, false)
         )
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.title.text = list[position].title
@@ -52,7 +49,6 @@ class SubCategoryAdapter(
         Glide.with(context).load(img).placeholder(R.drawable.ic_action_image)
             .into(holder.image)
     }
-
     override fun getItemCount(): Int {
         return list.size
     }

@@ -15,22 +15,20 @@ class FavViewModel(application: Application) : AndroidViewModel(application) {
     private val mutableLiveDataerror: MutableLiveData<String> = MutableLiveData<String>()
     private lateinit var roomDatabaseBuilder: AppRoomDatabase
 
-
-    // for future purpose
-    fun getErrorLiveData(): MutableLiveData<String> {
-        return mutableLiveDataerror
-    }
-
     fun getRoomData(): MutableLiveData<List<NewModelRoom>> {
         roomDatabaseBuilder =
             RoomDatabaseBuilder.getInstance(getApplication<Application>().applicationContext)
         Executors.newSingleThreadExecutor().execute {
-            val _databaseList = roomDatabaseBuilder.newsDao().getAllData()
+            val _databaseList = roomDatabaseBuilder.newsDao().getAllData() // get list from database
             mutableLiveDataNewsRoom.postValue(_databaseList)
         }
 
 
         return mutableLiveDataNewsRoom
+    }
+    // for future purpose
+    fun getErrorLiveData(): MutableLiveData<String> {
+        return mutableLiveDataerror
     }
 }
 

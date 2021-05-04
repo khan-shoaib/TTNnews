@@ -6,30 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".category.CategoryFrag">
 
-    <TextView
-        android:id="@+id/subcattag"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rccatergory"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="@string/categories"
-        android:textColor="@color/purple_700"
-        android:textSize="30sp"
-        android:textStyle="bold|italic"
+        android:layout_height="0dp"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/btsave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
-    <androidx.recyclerview.widget.RecyclerView
-
-        android:id="@+id/rccatergory"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btsave"
+        android:layout_width="0dp"
+        android:text="@string/saved_items"
+        android:layout_margin="4dp"
+        android:drawableLeft="@android:drawable/ic_menu_save"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subcattag" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
