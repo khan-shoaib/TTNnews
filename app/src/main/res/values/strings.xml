@@ -10,4 +10,5 @@
     <string name="no_data_avaliable">No Data avaliable</string>
     <string name="clickme">ClickMe</string>
     <string name="saved_items">Saved Items</string>
+    <string-array name="tesy"/>
 </resources>
